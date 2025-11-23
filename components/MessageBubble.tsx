@@ -27,12 +27,37 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
         )}
         
         <div className="flex flex-col gap-3">
+            {/* User Attachments */}
+            {message.attachments && message.attachments.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-1">
+                    {message.attachments.map((att, i) => (
+                        <div key={i} className="rounded-lg overflow-hidden border border-zinc-700 bg-black/20 max-w-[200px]">
+                            {att.mimeType.startsWith('image/') ? (
+                                <img 
+                                    src={`data:${att.mimeType};base64,${att.data}`} 
+                                    alt="User upload" 
+                                    className="w-full h-auto object-cover"
+                                />
+                            ) : (
+                                <div className="p-3 flex items-center gap-2">
+                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 opacity-70">
+                                        <path fillRule="evenodd" d="M4.5 2A1.5 1.5 0 003 3.5v13A1.5 1.5 0 004.5 18h11a1.5 1.5 0 001.5-1.5V7.621a1.5 1.5 0 00-.44-1.06l-4.12-4.122A1.5 1.5 0 0011.378 2H4.5zm2.25 8.5a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5zm0 3a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5z" clipRule="evenodd" />
+                                     </svg>
+                                    <span className="text-xs font-mono">{att.mimeType}</span>
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            )}
+
             {message.text && (
                 <div className="whitespace-pre-wrap break-words font-sans">
                     {message.text}
                 </div>
             )}
             
+            {/* Model Generated Image */}
             {message.image && (
                 <div className="mt-2 rounded-lg overflow-hidden border border-zinc-700 shadow-lg">
                     <img 

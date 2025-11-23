@@ -1,4 +1,5 @@
 import { GoogleGenAI, Chat, GenerateContentResponse, FunctionDeclaration, Type } from "@google/genai";
+import { Attachment } from "../types";
 
 // Singleton instance management
 let chatSession: Chat | null = null;
@@ -55,12 +56,38 @@ export const getChatSession = (): Chat => {
 
 export const sendMessageStream = async (
   message: string,
+  attachments: Attachment[] = [],
   onChunk: (text: string) => void
 ): Promise<void> => {
   const chat = getChatSession();
   
   try {
-    const resultStream = await chat.sendMessageStream({ message });
+    // Construct message parts
+    let messageContent: any;
+    
+    if (attachments.length > 0) {
+        // If there are attachments, we send an array of parts
+        const parts = [];
+        // Add attachments first (recommended for context)
+        for (const att of attachments) {
+            parts.push({
+                inlineData: {
+                    mimeType: att.mimeType,
+                    data: att.data
+                }
+            });
+        }
+        // Add text prompt
+        if (message) {
+            parts.push({ text: message });
+        }
+        messageContent = parts;
+    } else {
+        // Just text
+        messageContent = message;
+    }
+
+    const resultStream = await chat.sendMessageStream({ message: messageContent });
     
     let functionCall = null;
 
