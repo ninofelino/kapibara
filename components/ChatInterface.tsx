@@ -9,7 +9,7 @@ const ChatInterface: React.FC = () => {
     {
       id: 'welcome',
       role: Role.MODEL,
-      text: "Hello. I'm Gemini. I can help you chat, generate images, or fetch real-time data. Try asking: 'Show me recent house sales' or 'Draw a neon cat'.",
+      text: "Halo. Saya Gemini. Saya bisa membantu Anda mengobrol, membuat gambar, atau mencari data real-time. Coba tanyakan: 'Tampilkan penjualan rumah terbaru' atau 'Gambar kucing neon'.",
       timestamp: new Date(),
     }
   ]);
@@ -39,7 +39,7 @@ const ChatInterface: React.FC = () => {
     setMessages([{
         id: Date.now().toString(),
         role: Role.MODEL,
-        text: "Session cleared. Ready for a new topic.",
+        text: "Sesi dibersihkan. Siap untuk topik baru.",
         timestamp: new Date()
     }]);
   };
@@ -85,7 +85,7 @@ const ChatInterface: React.FC = () => {
                 {
                   id: botMessageId,
                   role: Role.MODEL,
-                  text: "Generating image...",
+                  text: "Sedang membuat gambar...",
                   timestamp: new Date(),
                 }
             ]);
@@ -96,7 +96,7 @@ const ChatInterface: React.FC = () => {
                 setMessages((prev) => 
                     prev.map((msg) => 
                         msg.id === botMessageId 
-                        ? { ...msg, text: `Here is your image for: "${userText}"`, image: imageBase64 }
+                        ? { ...msg, text: `Berikut adalah gambar untuk: "${userText}"`, image: imageBase64 }
                         : msg
                     )
                 );
@@ -104,7 +104,7 @@ const ChatInterface: React.FC = () => {
                  setMessages((prev) => 
                     prev.map((msg) => 
                         msg.id === botMessageId 
-                        ? { ...msg, text: "I couldn't generate an image for that prompt. Please try again." }
+                        ? { ...msg, text: "Saya tidak dapat membuat gambar untuk permintaan tersebut. Silakan coba lagi." }
                         : msg
                     )
                 );
@@ -141,7 +141,7 @@ const ChatInterface: React.FC = () => {
         if (exists) {
             return prev.map(msg => msg.id === botMessageId ? {
                 ...msg,
-                text: "An error occurred connecting to the model. Please try again.",
+                text: "Terjadi kesalahan saat menghubungkan ke model. Silakan coba lagi.",
                 isError: true
             } : msg);
         }
@@ -151,7 +151,7 @@ const ChatInterface: React.FC = () => {
             {
               id: Date.now().toString(),
               role: Role.MODEL,
-              text: "An error occurred connecting to the model. Please try again.",
+              text: "Terjadi kesalahan saat menghubungkan ke model. Silakan coba lagi.",
               timestamp: new Date(),
               isError: true
             }
@@ -178,7 +178,7 @@ const ChatInterface: React.FC = () => {
             <div className="w-5 h-5 bg-white rounded-full flex items-center justify-center">
                  <div className="w-2.5 h-2.5 bg-black rounded-full" />
             </div>
-            <h1 className="text-sm font-medium text-white tracking-tight">Gemini Chat</h1>
+            <h1 className="text-sm font-medium text-white tracking-tight">Obrolan Gemini</h1>
         </div>
         <button 
             onClick={handleReset}
@@ -209,7 +209,7 @@ const ChatInterface: React.FC = () => {
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Ask anything, 'draw a cat', or 'check house sales'..."
+                placeholder="Tanya apa saja, 'gambar kucing', atau 'cek harga rumah'..."
                 rows={1}
                 className="w-full bg-transparent text-white placeholder-zinc-500 text-sm p-3 focus:outline-none resize-none max-h-48"
                 disabled={isLoading}
@@ -220,7 +220,7 @@ const ChatInterface: React.FC = () => {
                     onClick={handleSendMessage}
                     disabled={!inputText.trim() || isLoading}
                     className="p-1.5 bg-white text-black rounded-lg hover:bg-zinc-200 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200"
-                    aria-label="Send message"
+                    aria-label="Kirim pesan"
                 >
                     {isLoading ? (
                          <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin"></div>
@@ -234,7 +234,7 @@ const ChatInterface: React.FC = () => {
         </div>
         <div className="text-center mt-3">
             <p className="text-[10px] text-zinc-600">
-                AI can make mistakes. Please verify important information.
+                AI bisa membuat kesalahan. Mohon verifikasi informasi penting.
             </p>
         </div>
       </div>

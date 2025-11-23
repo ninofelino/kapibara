@@ -37,7 +37,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
                 <div className="mt-2 rounded-lg overflow-hidden border border-zinc-700 shadow-lg">
                     <img 
                         src={message.image} 
-                        alt="Generated content" 
+                        alt="Konten yang dibuat" 
                         className="w-full h-auto max-w-sm object-cover bg-zinc-900"
                         loading="lazy"
                     />

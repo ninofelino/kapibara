@@ -17,7 +17,7 @@ const getClient = (): GoogleGenAI => {
 
 const getHouseSalesDeclaration: FunctionDeclaration = {
   name: 'getHouseSales',
-  description: 'Get real-time data about house sales including price, address, and date.',
+  description: 'Dapatkan data real-time tentang penjualan rumah termasuk harga, alamat, dan tanggal.',
   parameters: {
     type: Type.OBJECT,
     properties: {}
@@ -31,7 +31,7 @@ const fetchHouseSales = async () => {
     return await response.json();
   } catch (error) {
     console.error('Fetch error:', error);
-    return { error: 'Failed to fetch sales data' };
+    return { error: 'Gagal mengambil data penjualan' };
   }
 };
 
@@ -45,7 +45,7 @@ export const getChatSession = (): Chat => {
     chatSession = ai.chats.create({
       model: 'gemini-2.5-flash',
       config: {
-        systemInstruction: "You are a helpful, witty, and concise AI assistant. You answer questions clearly using Markdown formatting where appropriate. You can also generate images and query real-time house sales data.",
+        systemInstruction: "Anda adalah asisten AI yang membantu, cerdas, dan ringkas. Jawablah selalu pertanyaan dalam Bahasa Indonesia dengan jelas menggunakan format Markdown jika sesuai. Anda juga dapat membuat gambar dan mencari data penjualan rumah real-time.",
         tools: [{ functionDeclarations: [getHouseSalesDeclaration] }],
       },
     });
